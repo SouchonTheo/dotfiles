@@ -1,5 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 CASE_SENSITIVE="false"
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode auto      # update automatically without asking
@@ -27,6 +27,8 @@ zstyle ':omz:update' frequency 2
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-bat brew direnv)
 
 source $ZSH/oh-my-zsh.sh
+
+eval "$(starship init zsh)"
 
 # User configuration
 if [ -d "$HOME/.private" ]; then
