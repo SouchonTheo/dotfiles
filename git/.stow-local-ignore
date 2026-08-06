@@ -1,0 +1,6 @@
+# Overrides stow's default ignore list, for this package only.
+# By default stow ignores anything matching `\.gitignore`, which stopped it from
+# stowing the global ~/.gitignore that core.excludesfile points at.
+^/\.git$
+.+~
+\#.*\#

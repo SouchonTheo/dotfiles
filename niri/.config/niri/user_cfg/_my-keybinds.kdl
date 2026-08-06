@@ -1,0 +1,67 @@
+// Overrides and additions on top of cfg/keybinds.kdl.
+// Must be included AFTER it in config.kdl: last declaration wins.
+//
+// niri has no unbind syntax, so the vanilla combos I replaced below
+// (Mod+ALT+L, Mod+CTRL+Return, Mod+Shift+ESCAPE, Mod+CTRL+1..9,
+// CTRL+Shift+1/2/3) stay active in parallel. Killing them means editing
+// cfg/keybinds.kdl directly, which loses the pristine state.
+
+binds {
+
+    // 1. same key, action changed
+
+    Mod+Return                          hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty"; }
+
+    Mod+B hotkey-overlay-title="Open Browser: Helium" { spawn "helium-browser"; }
+    Mod+Shift+C hotkey-overlay-title="Open Claude" { spawn "helium-browser" "--app=https://claude.ai"; }
+
+    // vanilla = fullscreen-window
+    Mod+F                               { maximize-column; }
+
+    // vanilla = center-column, which I sacrificed.
+    // Mod+CTRL+C still does center-visible-columns.
+    Mod+C                               hotkey-overlay-title="Copy (Ctrl+C)" { spawn-sh "wtype -M ctrl -k Insert -m ctrl"; }
+
+    // 2. same action, key combo changed
+
+    // was Mod+Shift+ESCAPE
+    Mod+Shift+K                         { show-hotkey-overlay; }
+
+    // was Mod+CTRL+Return
+    Mod+Space                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+
+    // was Mod+ALT+L
+    Mod+Shift+L                         hotkey-overlay-title="Lock Screen: noctalia lock" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
+
+    // was Mod+CTRL+1..9
+    Mod+Shift+1                         { move-column-to-workspace 1; }
+    Mod+Shift+2                         { move-column-to-workspace 2; }
+    Mod+Shift+3                         { move-column-to-workspace 3; }
+    Mod+Shift+4                         { move-column-to-workspace 4; }
+    Mod+Shift+5                         { move-column-to-workspace 5; }
+    Mod+Shift+6                         { move-column-to-workspace 6; }
+    Mod+Shift+7                         { move-column-to-workspace 7; }
+    Mod+Shift+8                         { move-column-to-workspace 8; }
+    Mod+Shift+9                         { move-column-to-workspace 9; }
+
+    // was CTRL+Shift+1/2/3
+    Print                               { screenshot; }
+    Shift+Print                         { screenshot-screen; }
+    CTRL+Print                          { screenshot-window; }
+
+    // 3. new bindings, no vanilla equivalent
+
+    Mod+A                               hotkey-overlay-title="Open AI: claude" { spawn "gtk-launch" "brave-fmpnliohjhemenmnlpbfagaolkdacoja-Default"; }
+    Mod+Shift+E                         hotkey-overlay-title="Spawn Emoji Picker: noctalia emoji" { spawn-sh "qs -c noctalia-shell ipc call plugin:kaomoji toggle"; }
+
+    Mod+V                               hotkey-overlay-title="Paste (Shift+Insert)" { spawn-sh "wtype -M shift -k Insert -m shift"; }
+    Mod+X                               hotkey-overlay-title="Cut (Ctrl+X)" { spawn-sh "wtype -M ctrl -k x -m ctrl"; }
+    Mod+Shift+V                         hotkey-overlay-title="Clipboard manager: noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher clipboard"; }
+
+    Mod+R                               { switch-preset-column-width; }
+    Mod+Shift+R                         { switch-preset-window-height; }
+    Mod+Ctrl+R                          { reset-window-height; }
+
+    // requires HandlePowerKey=ignore in logind
+    XF86PowerOff                        allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
+}

@@ -1,0 +1,8 @@
+// Extra window-rules. Each window-rule{} block is one rule and they ADD to
+// those in cfg/rules.kdl, so the vanilla ones don't need redefining.
+
+// inactive windows semi-transparent to highlight focus
+window-rule {
+    match is-active=false
+    opacity 0.85
+}
